@@ -1,10 +1,12 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { SplashScreen, Stack } from 'expo-router';
-import { useEffect } from 'react';
-import { useColorScheme } from 'react-native';
-
+import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
+import { useFonts } from "expo-font";
+import { SplashScreen, Stack } from "expo-router";
+import { useEffect } from "react";
+import { useColorScheme } from "react-native";
+import CustomHeader from "@/components/CustomHeader";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -16,7 +18,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    SpaceMono: require("../assets/fonts/BalooBhai2-Regular.ttf"),
     ...FontAwesome.font,
   });
 
@@ -38,8 +40,10 @@ export default function RootLayout() {
   return <RootLayoutNav />;
 }
 
-const STACK_OPTIONS = {
+const STACK_OPTIONS: NativeStackNavigationOptions | undefined = {
   // headerShown: false
+  title: "Home",
+  header: () => <CustomHeader />,
 };
 
 const RootLayoutNav = () => {
@@ -47,9 +51,11 @@ const RootLayoutNav = () => {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="index" options={STACK_OPTIONS} />
-      </Stack>
+      <BottomSheetModalProvider>
+        <Stack>
+          <Stack.Screen name="index" options={STACK_OPTIONS} />
+        </Stack>
+      </BottomSheetModalProvider>
     </ThemeProvider>
   );
 };
