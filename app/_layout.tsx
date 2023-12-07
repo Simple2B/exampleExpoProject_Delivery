@@ -2,11 +2,13 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { useFonts } from "expo-font";
-import { SplashScreen, Stack } from "expo-router";
+import { SplashScreen, Stack, useNavigation } from "expo-router";
 import { useEffect } from "react";
-import { useColorScheme } from "react-native";
+import { TouchableOpacity, useColorScheme, Text } from "react-native";
 import CustomHeader from "@/components/CustomHeader";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { colors } from "@/constants/colors";
+import { Ionicons } from "@expo/vector-icons";
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -48,12 +50,36 @@ const STACK_OPTIONS: NativeStackNavigationOptions | undefined = {
 
 const RootLayoutNav = () => {
   const colorScheme = useColorScheme();
-
+  const navigation = useNavigation();
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <BottomSheetModalProvider>
         <Stack>
           <Stack.Screen name="index" options={STACK_OPTIONS} />
+          <Stack.Screen
+            name="(modal)/filter"
+            options={{
+              presentation: "modal",
+              headerTitle: "Filter",
+              headerShadowVisible: false,
+              headerStyle: {
+                backgroundColor: colors.lightGray,
+              },
+              headerLeft: () => (
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.goBack();
+                  }}
+                >
+                  <Ionicons
+                    name="close-outline"
+                    size={30}
+                    color={colors.secondary}
+                  />
+                </TouchableOpacity>
+              ),
+            }}
+          />
         </Stack>
       </BottomSheetModalProvider>
     </ThemeProvider>

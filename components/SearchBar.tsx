@@ -23,7 +23,7 @@ const SearchBar: React.FC<ISearchBar> = () => {
             style={styles.input}
           />
         </View>
-        <Link href="/" asChild>
+        <Link href="/(modal)/filter" asChild>
           <TouchableOpacity style={styles.optionBtn}>
             <Ionicons
               name="options-outline"
