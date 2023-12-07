@@ -6,7 +6,7 @@ import {
   FlatList,
   ListRenderItem,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigation } from "expo-router";
 import { colors } from "@/constants/colors";
 import fonts from "@/assets/fonts";
@@ -70,19 +70,59 @@ interface IFilter {}
 const Filter: React.FC<IFilter> = () => {
   const navigation = useNavigation();
 
-  const renderItemCategory: ListRenderItem<ICategory> = ({ item }) => {
+  const [items, setItems] = useState<ICategory[]>(categories);
+  const [selectedItems, setSelectedItems] = useState<ICategory[]>([]);
+
+  const handleClearAll = () => {
+    const updatedItems = items.map((item) => {
+      return { ...item, checked: false };
+    });
+    setItems(updatedItems);
+  };
+
+  const addCategories = (index: number) => {
+    const isChecked = items[index].checked;
+    const updatedItems = items.map((item, i) => {
+      if (i === index) {
+        return { ...item, checked: !isChecked };
+      }
+      return item;
+    });
+    setItems(updatedItems);
+  };
+
+  const renderItemCategory: ListRenderItem<ICategory> = ({ item, index }) => {
     return (
-      <View style={styles.itemCategory}>
+      <TouchableOpacity
+        style={styles.itemCategory}
+        onPress={() => addCategories(index)}
+      >
         <Text style={styles.itemCategoryText}>
           {item.name} ({item.count})
         </Text>
-      </View>
+        <BouncyCheckbox
+          size={25}
+          fillColor={colors.secondary}
+          disableBuiltInState
+          unfillColor={colors.white}
+          text=""
+          iconStyle={{ borderColor: colors.secondary, borderRadius: 4 }}
+          innerIconStyle={{
+            borderWidth: 2,
+            borderColor: colors.secondary,
+            borderRadius: 4,
+          }}
+          // textStyle={{ fontFamily: "JosefinSans-Regular" }}
+          onPress={() => addCategories(index)}
+          isChecked={items[index].checked}
+        />
+      </TouchableOpacity>
     );
   };
   return (
     <View style={styles.container}>
       <FlatList
-        data={categories}
+        data={items}
         renderItem={renderItemCategory}
         ListHeaderComponent={<ItemBox />}
       />
