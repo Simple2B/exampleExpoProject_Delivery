@@ -80,6 +80,30 @@ const RootLayoutNav = () => {
               ),
             }}
           />
+
+          <Stack.Screen
+            name="(modal)/location-search"
+            options={{
+              presentation: "fullScreenModal",
+              headerTitle: "Search location",
+              headerStyle: {
+                backgroundColor: colors.lightGray,
+              },
+              headerLeft: () => (
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.goBack();
+                  }}
+                >
+                  <Ionicons
+                    name="close-outline"
+                    size={30}
+                    color={colors.secondary}
+                  />
+                </TouchableOpacity>
+              ),
+            }}
+          />
         </Stack>
       </BottomSheetModalProvider>
     </ThemeProvider>

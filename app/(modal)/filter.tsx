@@ -6,13 +6,18 @@ import {
   FlatList,
   ListRenderItem,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "expo-router";
 import { colors } from "@/constants/colors";
 import fonts from "@/assets/fonts";
 import { categories } from "@/assets/data/filters";
 import { Ionicons } from "@expo/vector-icons";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 
 interface ICategory {
   name: string;
@@ -72,6 +77,19 @@ const Filter: React.FC<IFilter> = () => {
 
   const [items, setItems] = useState<ICategory[]>(categories);
   const [selectedItems, setSelectedItems] = useState<ICategory[]>([]);
+  const flexWidth = useSharedValue(0);
+  const scale = useSharedValue(0);
+
+  useEffect(() => {
+    const hasSelected = selectedItems.length > 0;
+    const selected = items.filter((item) => item.checked);
+    const newSelected = selected.length > 0;
+    if (hasSelected !== newSelected) {
+      flexWidth.value = withTiming(newSelected ? 150 : 0);
+      scale.value = withTiming(newSelected ? 1 : 0);
+    }
+    setSelectedItems(selected);
+  }, [items]);
 
   const handleClearAll = () => {
     const updatedItems = items.map((item) => {
@@ -90,6 +108,19 @@ const Filter: React.FC<IFilter> = () => {
     });
     setItems(updatedItems);
   };
+
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      width: flexWidth.value,
+      opacity: flexWidth.value > 0 ? 1 : 0,
+    };
+  });
+
+  const animatedText = useAnimatedStyle(() => {
+    return {
+      transform: [{ scale: scale.value }],
+    };
+  });
 
   const renderItemCategory: ListRenderItem<ICategory> = ({ item, index }) => {
     return (
@@ -128,12 +159,21 @@ const Filter: React.FC<IFilter> = () => {
       />
       <View style={{ height: 90 }} />
       <View style={styles.footer}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.fullButton}
-        >
-          <Text style={styles.fullButtonText}>Done</Text>
-        </TouchableOpacity>
+        <View style={styles.btnContainer}>
+          <Animated.View style={[animatedStyles, styles.outlineButton]}>
+            <TouchableOpacity onPress={handleClearAll}>
+              <Animated.Text style={[animatedText, styles.outlineButtonText]}>
+                Clear all
+              </Animated.Text>
+            </TouchableOpacity>
+          </Animated.View>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={styles.fullButton}
+          >
+            <Text style={styles.fullButtonText}>Done</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -162,13 +202,36 @@ const styles = StyleSheet.create({
       height: -10,
     },
   },
+  btnContainer: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "center",
+    flex: 1,
+    marginTop: 13,
+  },
+  outlineButton: {
+    borderColor: colors.secondary,
+    borderWidth: 0.5,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 8,
+    paddingVertical: 8,
+    marginHorizontal: 10,
+  },
+  outlineButtonText: {
+    color: colors.secondary,
+    fontSize: 18,
+    fontWeight: "500",
+    fontFamily: fonts.text,
+  },
   fullButton: {
+    flex: 1,
     backgroundColor: colors.secondary,
     paddingVertical: 8,
-    marginHorizontal: 20,
-    marginVertical: 10,
     alignItems: "center",
     borderRadius: 8,
+    marginHorizontal: 10,
+    marginLeft: 0,
   },
   fullButtonText: {
     color: colors.white,
