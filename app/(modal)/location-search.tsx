@@ -1,16 +1,7 @@
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-} from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import React, { EffectCallback, useEffect, useRef, useState } from "react";
-import { useNavigation } from "expo-router";
 import MapView, {
-  Callout,
-  Marker,
-  PROVIDER_GOOGLE,
+
   Region,
 } from "react-native-maps";
 import * as Location from "expo-location";
