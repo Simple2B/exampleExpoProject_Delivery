@@ -9,6 +9,7 @@ import CustomHeader from "@/components/CustomHeader";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { colors } from "@/constants/colors";
 import { Ionicons } from "@expo/vector-icons";
+// import MapLibreGL from "@rnmapbox/maps";
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.

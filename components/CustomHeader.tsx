@@ -36,7 +36,7 @@ const CustomHeader: React.FC<ICustomHeader> = () => {
         >
           <Text style={styles.title}>Delivery now</Text>
           <View style={styles.containerSubtitle}>
-            <Text style={styles.subtitle}>New York, USA</Text>
+            <Text style={styles.subtitle}>Selected location</Text>
             <Ionicons name="chevron-down" size={20} color={colors.secondary} />
           </View>
         </TouchableOpacity>
