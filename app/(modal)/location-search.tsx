@@ -32,39 +32,7 @@ const LocationSearch = () => {
   const [mapRegion, setMapRegion] = useState<Region | null>(null);
   const mapRef = useRef<MapView>(null);
 
-  // const navigation = useNavigation();
-
-  // useEffect(() => {
-  //   navigation.setOptions({
-  //     headerRight: () => (
-  //       <TouchableOpacity onPress={focusMap}>
-  //         <View style={{ padding: 10 }}>
-  //           <Text>Focus</Text>
-  //         </View>
-  //       </TouchableOpacity>
-  //     ),
-  //   });
-  // }, []);
-
-  // const focusMap = () => {
-  //   const greenBayStadium = {
-  //     latitude: 48.3794,
-  //     longitude: 31.1656,
-  //     latitudeDelta: 0.0922,
-  //     longitudeDelta: 0.0421,
-  //   };
-
-  //   mapRef.current?.animateCamera(
-  //     { center: greenBayStadium, zoom: 14 },
-  //     { duration: 2500 }
-  //   );
-  // };
-  // // const [location, setLocation] = useState(null);
-
-  // const onRegionChange = (region: Region) => {
-  //   console.log("Region Changed => ", region);
-  // };
-
+  // set current location
   const userLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
@@ -89,6 +57,7 @@ const LocationSearch = () => {
     userLocation();
   }, []);
 
+  // Google Places Autocomplete functions
   const LeftButton = () => {
     return (
       <Ionicons
@@ -149,8 +118,6 @@ const LocationSearch = () => {
       {mapRegion && (
         <MapView
           style={styles.map}
-          // style={StyleSheet.absoluteFill}
-          // provider={PROVIDER_GOOGLE}
           region={mapRegion}
           showsUserLocation={true}
           ref={mapRef}
@@ -194,7 +161,6 @@ const styles = StyleSheet.create({
   },
 
   // search outline
-
   searchOutline: {
     position: "absolute",
     top: 18,
