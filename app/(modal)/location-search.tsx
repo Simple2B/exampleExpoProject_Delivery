@@ -13,9 +13,7 @@ import { colors } from "@/constants/colors";
 import fonts from "@/assets/fonts";
 import { Ionicons } from "@expo/vector-icons";
 
-const useMount = (callback: EffectCallback) => {
-  React.useEffect(callback, []);
-};
+
 
 const EXPO_PUBLIC_GOOGLE_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_API_KEY;
 
@@ -106,14 +104,19 @@ const LocationSearch = () => {
         renderLeftButton={LeftButton}
         styles={googlePlacesAutocompleteStyles}
       />
-      {mapRegion && (
-        <MapView
-          style={styles.map}
-          region={mapRegion}
-          showsUserLocation={true}
-          ref={mapRef}
-        />
-      )}
+      <MapView
+        style={styles.map}
+        region={
+          mapRegion ?? {
+            latitude: 48.3794,
+            longitude: 31.1656,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }
+        }
+        showsUserLocation={true}
+        ref={mapRef}
+      />
       <TouchableOpacity style={styles.boxBtn}>
         <Text style={styles.boxBtnText}>Confirm</Text>
       </TouchableOpacity>
@@ -130,6 +133,8 @@ const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
+    width: "100%",
+    height: "100%",
   },
   boxBtn: {
     alignSelf: "stretch",
