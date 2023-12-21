@@ -1,4 +1,4 @@
-import { Text, ScrollView, StyleSheet } from "react-native";
+import { Text, ScrollView, StyleSheet, Platform } from "react-native";
 import React from "react";
 import { useFonts } from "expo-font";
 import Categories from "@/components/Categories";
@@ -19,7 +19,7 @@ const App = () => {
         <Restaurants />
 
         <Text style={styles.headerText}>Offers near you</Text>
-        {/* <Restaurants /> */}
+        <Restaurants />
       </ScrollView>
     </SafeAreaView>
   );
@@ -27,11 +27,11 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: {
-    top: 65,
+    top: Platform.OS === "ios" ? 65 : 100,
     backgroundColor: colors.lightGray,
   },
   contentContainerStyle: {
-    paddingBottom: 45,
+    paddingBottom: Platform.OS === "ios" ? 100 : 130,
   },
   headerText: {
     fontFamily: fonts.title,

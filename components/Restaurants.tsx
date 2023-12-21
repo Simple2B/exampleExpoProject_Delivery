@@ -23,7 +23,7 @@ const Restaurants: React.FC<IRestaurants> = () => {
     >
       {restaurants.map((restaurant, index) => {
         return (
-          <Link href={"/"} key={index} asChild>
+          <Link href={"/details"} key={index} asChild>
             <TouchableOpacity>
               <View style={styles.card}>
                 <Image style={styles.cardImg} source={restaurant.img} />
