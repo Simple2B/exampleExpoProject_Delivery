@@ -49,4 +49,5 @@ export const colors = {
   lightSteelBlue2: "#b0c4de",
   lightMagenta2: "#ff00ff",
   lightBeige2: "#f5f5dc",
+  opacityWhite: "rgba(255,255,255,0.4)",
 };

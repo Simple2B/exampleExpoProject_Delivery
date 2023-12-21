@@ -41,3 +41,82 @@ export const restaurants = [
     duration: "30 - 45",
   },
 ];
+
+
+export const getDishById = (id: number) => {
+  const meals = restaurant.food.flatMap((category) => category.meals);
+  return meals.find((food) => food.id === id);
+};
+
+export const restaurant = {
+  name: "Live Cake",
+  rating: "4.5 Excellent",
+  ratings: "(400+)",
+  img: require("../images/restaurants/vapiano.png"),
+  distance: "0.85 miles away",
+  delivery: "10-2 min",
+  tags: ["pancakes", "sweets", "waffles"],
+  about:
+    "Sugar-free, egg-free, healthy handmade cakes made with yogurt and nuts",
+  food: [
+    {
+      category: "cakes",
+      meals: [
+        {
+          id: 1,
+          name: "Chocolate Cake",
+          price: 12.99,
+          img: require("../images/restaurants/cakes/chocolate_cake.png"),
+          info: "Chocolate cake with chocolate icing",
+          // calories: 250,
+          // tags: ["chocolate", "cake", "dessert"],
+        },
+        {
+          id: 2,
+          name: "Strawberry Cake",
+          price: 12.99,
+          img: require("../images/restaurants/cakes/strawberry_cake.png"),
+          info: "Strawberry cake with strawberry icing",
+          // calories: 250,
+          // tags: ["strawberry", "cake", "dessert"],
+        },
+        {
+          id: 3,
+          name: "Vanilla Cake",
+          price: 12.99,
+          img: require("../images/restaurants/cakes/vanilla_cake.png"),
+          info: "Vanilla cake with vanilla icing",
+          // calories: 250,
+          // tags: ["vanilla", "cake", "dessert"],
+        },
+        {
+          id: 4,
+          name: "Chocolate Cake",
+          price: 12.99,
+          img: require("../images/restaurants/cakes/chocolate_cake.png"),
+          info: "Chocolate cake with chocolate icing",
+          // calories: 250,
+          // tags: ["chocolate", "cake", "dessert"],
+        },
+        {
+          id: 5,
+          name: "Strawberry Cake",
+          price: 12.99,
+          img: require("../images/restaurants/cakes/strawberry_cake.png"),
+          info: "Strawberry cake with strawberry icing",
+          // calories: 250,
+          // tags: ["strawberry", "cake", "dessert"],
+        },
+        {
+          id: 6,
+          name: "Vanilla Cake",
+          price: 12.99,
+          img: require("../images/restaurants/cakes/vanilla_cake.png"),
+          info: "Vanilla cake with vanilla icing",
+          // calories: 250,
+          // tags: ["vanilla", "cake", "dessert"],
+        },
+      ],
+    },
+  ],
+};
