@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "expoProject",
-    "slug": "testexpodelivery",
+    "slug": "expoProject",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -49,9 +49,11 @@
         "origin": false
       },
       "eas": {
-        "projectId": "f4418ea3-c49e-44d2-a804-a1790e52cbc2"
+        "projectId": "96118aa5-7988-42ba-884f-3d618056f104"
       }
-    },
-    "owner": "simple2b"
+    }
   }
 }
+
+
+// "projectId": "f4418ea3-c49e-44d2-a804-a1790e52cbc2"
