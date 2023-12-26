@@ -5,6 +5,8 @@ import {
   Image,
   TouchableOpacity,
   Platform,
+  SectionList,
+  ListRenderItem,
 } from "react-native";
 import React, { useLayoutEffect } from "react";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
@@ -18,6 +20,10 @@ interface IDetails {}
 
 const Details: React.FC<IDetails> = () => {
   const navigation = useNavigation();
+  const sectionListData = restaurant.food.map((food) => ({
+    title: food.category,
+    data: food.meals,
+  }));
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -60,28 +66,70 @@ const Details: React.FC<IDetails> = () => {
       },
     });
   }, []);
-  return (
-    <>
-      <ParallaxScrollView
-        backgroundColor={colors.white}
-        style={styles.parallaxScrollView}
-        parallaxHeaderHeight={300}
-        stickyHeaderHeight={120}
-        contentBackgroundColor={colors.lightGray}
-        renderBackground={() => (
-          <Image source={restaurant.img} style={styles.backgroundImage} />
-        )}
-        renderStickyHeader={() => (
-          <View key="sticky-header" style={styles.stickySection}>
-            <Text style={styles.stickySectionText}>{restaurant.name}</Text>
-          </View>
-        )}
+
+  const renderItem: ListRenderItem<any> = ({ item, index }) => {
+    return (
+      <View
+        key={index}
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginHorizontal: 16,
+          marginVertical: 8,
+        }}
       >
-        <View style={styles.detailsContainer}>
-          <Text>Details</Text>
+        <Text>{item.name}</Text>
+        <Text>{item.price}</Text>
+      </View>
+    );
+  };
+  return (
+    <ParallaxScrollView
+      backgroundColor={colors.white}
+      style={styles.parallaxScrollView}
+      parallaxHeaderHeight={300}
+      stickyHeaderHeight={120}
+      contentBackgroundColor={colors.lightGray}
+      renderBackground={() => (
+        <Image source={restaurant.img} style={styles.backgroundImage} />
+      )}
+      renderStickyHeader={() => (
+        <View key="sticky-header" style={styles.stickySection}>
+          <Text style={styles.stickySectionText}>{restaurant.name}</Text>
         </View>
-      </ParallaxScrollView>
-    </>
+      )}
+    >
+      <View style={styles.detailsContainer}>
+        <Text style={styles.restaurantName}>{restaurant.name}</Text>
+        {/* <Text style={styles.restaurantDescription}>
+            {restaurant.description}
+          </Text> */}
+        <Text style={styles.restaurantDelivery}>
+          {restaurant.delivery} •
+          {restaurant.tags.map(
+            (tag, index) =>
+              ` ${tag} ${index < restaurant.tags.length - 1 ? " • " : " "}`
+          )}
+        </Text>
+        <Text style={styles.restaurantDescription}>{restaurant.about}</Text>
+        <SectionList
+          scrollEnabled={false}
+          keyExtractor={(item) => `${item.id}`}
+          sections={sectionListData}
+          renderSectionHeader={({ section: { title } }) => {
+            return <Text style={styles.sectionHeader}>{title}</Text>;
+          }}
+          renderItem={renderItem}
+          contentContainerStyle={styles.contentContainerStyle}
+          ItemSeparatorComponent={() => {
+            return <View style={styles.itemSeparator} />;
+          }}
+          SectionSeparatorComponent={() => {
+            return <View style={styles.sectionSeparator} />;
+          }}
+        />
+      </View>
+    </ParallaxScrollView>
   );
 };
 
@@ -96,7 +144,49 @@ const styles = StyleSheet.create({
     height: 300,
   },
   detailsContainer: {
+    backgroundColor: colors.white,
+  },
+  restaurantName: {
+    fontFamily: fonts.title,
+    fontSize: 25,
+    fontWeight: "600",
+    color: colors.black,
+    paddingHorizontal: 20,
+    paddingTop: 10,
+  },
+  restaurantDescription: {
+    fontFamily: fonts.text,
+    fontSize: 16,
+    fontWeight: "400",
+    color: colors.gray,
+    paddingHorizontal: 20,
+    paddingTop: 5,
+  },
+  contentContainerStyle: {
+    paddingBottom: 50,
+  },
+  itemSeparator: {
+    height: 2,
     backgroundColor: colors.lightGray,
+  },
+  sectionSeparator: {
+    height: 2,
+    backgroundColor: colors.lightGray,
+  },
+  restaurantDelivery: {
+    fontFamily: fonts.text,
+    fontSize: 16,
+    fontWeight: "600",
+    color: colors.lightSeaGreen,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  sectionHeader: {
+    fontFamily: fonts.title,
+    fontSize: 22,
+    fontWeight: "600",
+    margin: 10,
+    marginTop: 20,
   },
   stickySection: {
     // backgroundColor: colors.lightSeaGreen,
