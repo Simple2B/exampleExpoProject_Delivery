@@ -12,7 +12,7 @@ import React, { useLayoutEffect } from "react";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { colors } from "@/constants/colors";
 import { restaurant } from "@/assets/data/restaurants";
-import { useNavigation } from "expo-router";
+import { Link, useNavigation } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import fonts from "@/assets/fonts";
 
@@ -69,23 +69,21 @@ const Details: React.FC<IDetails> = () => {
 
   const renderItem: ListRenderItem<any> = ({ item, index }) => {
     return (
-      <View
-        key={index}
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          marginHorizontal: 16,
-          marginVertical: 8,
-        }}
-      >
-        <Text>{item.name}</Text>
-        <Text>{item.price}</Text>
-      </View>
+      <Link href={"/"} asChild>
+        <TouchableOpacity key={index} style={styles.item}>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.dish}>{item.name}</Text>
+            <Text style={styles.dishText}>{item.info}</Text>
+            <Text style={styles.dishText}>${item.price}</Text>
+          </View>
+          <Image source={item.img} style={styles.imageItem} />
+        </TouchableOpacity>
+      </Link>
     );
   };
   return (
     <ParallaxScrollView
-      backgroundColor={colors.white}
+      backgroundColor={colors.lightGray}
       style={styles.parallaxScrollView}
       parallaxHeaderHeight={300}
       stickyHeaderHeight={120}
@@ -144,7 +142,7 @@ const styles = StyleSheet.create({
     height: 300,
   },
   detailsContainer: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.lightGray,
   },
   restaurantName: {
     fontFamily: fonts.title,
@@ -168,6 +166,7 @@ const styles = StyleSheet.create({
   itemSeparator: {
     height: 2,
     backgroundColor: colors.lightGray,
+    marginHorizontal: 16,
   },
   sectionSeparator: {
     height: 2,
@@ -214,5 +213,29 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: 10,
+  },
+  item: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    paddingVertical: 13,
+    backgroundColor: colors.white,
+  },
+  dish: {
+    fontSize: 18,
+    fontWeight: "900",
+    fontFamily: fonts.text,
+    color: colors.lightSeaGreen,
+  },
+  dishText: {
+    fontSize: 15,
+    fontWeight: "400",
+    fontFamily: fonts.text,
+    paddingVertical: 4,
+  },
+  imageItem: {
+    width: 80,
+    height: 80,
+    borderRadius: 4,
   },
 });
