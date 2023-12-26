@@ -6,7 +6,7 @@ import {
   Platform,
 } from "react-native";
 import React from "react";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import Animated, { FadeInLeft, FadeInRight } from "react-native-reanimated";
 import * as Haptics from "expo-haptics";
 import { colors } from "@/constants/colors";
@@ -17,7 +17,12 @@ const Dish = () => {
   const { id } = useLocalSearchParams();
   const item = getDishById(Number(id));
 
-  const addToCard = () => {};
+  const router = useRouter();
+
+  const addToCard = async () => {
+    // await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    router.back();
+  };
 
   return (
     <View style={styles.container}>
@@ -81,7 +86,7 @@ const styles = StyleSheet.create({
     bottom: Platform.OS === "ios" ? 40 : 30,
     left: 0,
     right: 0,
-    padding: 10,
+    // padding: 10,
     elevation: 10,
     shadowColor: colors.black,
     shadowOffset: {
@@ -97,7 +102,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginHorizontal: 20,
+    marginHorizontal: 16,
   },
   button: {
     width: "100%",
