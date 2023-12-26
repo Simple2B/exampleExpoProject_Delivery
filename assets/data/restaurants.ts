@@ -123,7 +123,7 @@ export const restaurant = {
       category: "Strawberry Cake",
       meals: [
         {
-          id: 1,
+          id: 7,
           name: "Chocolate Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/chocolate_cake.png"),
@@ -132,7 +132,7 @@ export const restaurant = {
           // tags: ["chocolate", "cake", "dessert"],
         },
         {
-          id: 2,
+          id: 8,
           name: "Strawberry Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/strawberry_cake.png"),
@@ -141,7 +141,7 @@ export const restaurant = {
           // tags: ["strawberry", "cake", "dessert"],
         },
         {
-          id: 3,
+          id: 9,
           name: "Vanilla Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/vanilla_cake.png"),
@@ -150,7 +150,7 @@ export const restaurant = {
           // tags: ["vanilla", "cake", "dessert"],
         },
         {
-          id: 4,
+          id: 10,
           name: "Chocolate Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/chocolate_cake.png"),
@@ -159,7 +159,7 @@ export const restaurant = {
           // tags: ["chocolate", "cake", "dessert"],
         },
         {
-          id: 5,
+          id: 11,
           name: "Strawberry Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/strawberry_cake.png"),
@@ -168,7 +168,7 @@ export const restaurant = {
           // tags: ["strawberry", "cake", "dessert"],
         },
         {
-          id: 6,
+          id: 12,
           name: "Vanilla Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/vanilla_cake.png"),
@@ -182,7 +182,7 @@ export const restaurant = {
       category: "Chocolate Cake",
       meals: [
         {
-          id: 1,
+          id: 13,
           name: "Chocolate Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/chocolate_cake.png"),
@@ -191,7 +191,7 @@ export const restaurant = {
           // tags: ["chocolate", "cake", "dessert"],
         },
         {
-          id: 2,
+          id: 14,
           name: "Strawberry Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/strawberry_cake.png"),
@@ -200,7 +200,7 @@ export const restaurant = {
           // tags: ["strawberry", "cake", "dessert"],
         },
         {
-          id: 3,
+          id: 15,
           name: "Vanilla Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/vanilla_cake.png"),
@@ -209,7 +209,7 @@ export const restaurant = {
           // tags: ["vanilla", "cake", "dessert"],
         },
         {
-          id: 4,
+          id: 16,
           name: "Chocolate Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/chocolate_cake.png"),
@@ -218,7 +218,7 @@ export const restaurant = {
           // tags: ["chocolate", "cake", "dessert"],
         },
         {
-          id: 5,
+          id: 17,
           name: "Strawberry Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/strawberry_cake.png"),
@@ -227,7 +227,7 @@ export const restaurant = {
           // tags: ["strawberry", "cake", "dessert"],
         },
         {
-          id: 6,
+          id: 18,
           name: "Vanilla Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/vanilla_cake.png"),
@@ -241,7 +241,7 @@ export const restaurant = {
       category: "Sweets",
       meals: [
         {
-          id: 1,
+          id: 19,
           name: "Chocolate Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/chocolate_cake.png"),
@@ -250,7 +250,7 @@ export const restaurant = {
           // tags: ["chocolate", "cake", "dessert"],
         },
         {
-          id: 2,
+          id: 20,
           name: "Strawberry Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/strawberry_cake.png"),
@@ -259,7 +259,7 @@ export const restaurant = {
           // tags: ["strawberry", "cake", "dessert"],
         },
         {
-          id: 3,
+          id: 21,
           name: "Vanilla Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/vanilla_cake.png"),
@@ -268,7 +268,7 @@ export const restaurant = {
           // tags: ["vanilla", "cake", "dessert"],
         },
         {
-          id: 4,
+          id: 22,
           name: "Chocolate Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/chocolate_cake.png"),
@@ -277,7 +277,7 @@ export const restaurant = {
           // tags: ["chocolate", "cake", "dessert"],
         },
         {
-          id: 5,
+          id: 23,
           name: "Strawberry Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/strawberry_cake.png"),
@@ -286,7 +286,7 @@ export const restaurant = {
           // tags: ["strawberry", "cake", "dessert"],
         },
         {
-          id: 6,
+          id: 24,
           name: "Vanilla Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/vanilla_cake.png"),
@@ -300,7 +300,7 @@ export const restaurant = {
       category: "Candy",
       meals: [
         {
-          id: 1,
+          id: 25,
           name: "Chocolate Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/chocolate_cake.png"),
@@ -309,7 +309,7 @@ export const restaurant = {
           // tags: ["chocolate", "cake", "dessert"],
         },
         {
-          id: 2,
+          id: 26,
           name: "Strawberry Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/strawberry_cake.png"),
@@ -318,7 +318,7 @@ export const restaurant = {
           // tags: ["strawberry", "cake", "dessert"],
         },
         {
-          id: 3,
+          id: 27,
           name: "Vanilla Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/vanilla_cake.png"),
@@ -327,7 +327,7 @@ export const restaurant = {
           // tags: ["vanilla", "cake", "dessert"],
         },
         {
-          id: 4,
+          id: 28,
           name: "Chocolate Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/chocolate_cake.png"),
@@ -336,7 +336,7 @@ export const restaurant = {
           // tags: ["chocolate", "cake", "dessert"],
         },
         {
-          id: 5,
+          id: 29,
           name: "Strawberry Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/strawberry_cake.png"),
@@ -345,7 +345,7 @@ export const restaurant = {
           // tags: ["strawberry", "cake", "dessert"],
         },
         {
-          id: 6,
+          id: 30,
           name: "Vanilla Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/vanilla_cake.png"),
@@ -359,7 +359,7 @@ export const restaurant = {
       category: "Confection",
       meals: [
         {
-          id: 1,
+          id: 31,
           name: "Chocolate Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/chocolate_cake.png"),
@@ -368,7 +368,7 @@ export const restaurant = {
           // tags: ["chocolate", "cake", "dessert"],
         },
         {
-          id: 2,
+          id: 32,
           name: "Strawberry Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/strawberry_cake.png"),
@@ -377,7 +377,7 @@ export const restaurant = {
           // tags: ["strawberry", "cake", "dessert"],
         },
         {
-          id: 3,
+          id: 33,
           name: "Vanilla Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/vanilla_cake.png"),
@@ -386,7 +386,7 @@ export const restaurant = {
           // tags: ["vanilla", "cake", "dessert"],
         },
         {
-          id: 4,
+          id: 34,
           name: "Chocolate Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/chocolate_cake.png"),
@@ -395,7 +395,7 @@ export const restaurant = {
           // tags: ["chocolate", "cake", "dessert"],
         },
         {
-          id: 5,
+          id: 35,
           name: "Strawberry Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/strawberry_cake.png"),
@@ -404,7 +404,7 @@ export const restaurant = {
           // tags: ["strawberry", "cake", "dessert"],
         },
         {
-          id: 6,
+          id: 36,
           name: "Vanilla Cake",
           price: 12.99,
           img: require("../images/restaurants/cakes/vanilla_cake.png"),

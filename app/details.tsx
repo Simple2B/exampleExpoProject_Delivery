@@ -9,14 +9,18 @@ import {
   ListRenderItem,
   ScrollView,
 } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { colors } from "@/constants/colors";
 import { restaurant } from "@/assets/data/restaurants";
 import { Link, useNavigation } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import fonts from "@/assets/fonts";
-import Animated from "react-native-reanimated";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 
 interface IDetails {}
 
@@ -27,11 +31,25 @@ const Details: React.FC<IDetails> = () => {
     data: food.meals,
   }));
 
+  const scrollRef = useRef<ScrollView>(null);
+  const itemsRef = useRef<TouchableOpacity[]>([]);
+
   const [activeSegment, setActiveSegment] = useState(0);
 
   const selectCategory = (index: number) => {
+    const selected = itemsRef.current[index];
     setActiveSegment(index);
+    selected.measure((x) => {
+      scrollRef.current?.scrollTo({ x: x - 16, y: 0, animated: true });
+    });
   };
+
+  const opacity = useSharedValue(0);
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      opacity: opacity.value,
+    };
+  });
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -75,9 +93,24 @@ const Details: React.FC<IDetails> = () => {
     });
   }, []);
 
+  const onScroll = (event: any) => {
+    const y = event.nativeEvent.contentOffset.y;
+    if (y > 150) {
+      opacity.value = withTiming(1);
+    } else {
+      opacity.value = withTiming(0);
+    }
+  };
+
   const renderItem: ListRenderItem<any> = ({ item, index }) => {
     return (
-      <Link href={"/"} asChild>
+      <Link
+        href={{
+          pathname: "/(modal)/dish",
+          params: { id: item.id },
+        }}
+        asChild
+      >
         <TouchableOpacity key={index} style={styles.item}>
           <View style={{ flex: 1 }}>
             <Text style={styles.dish}>{item.name}</Text>
@@ -93,6 +126,7 @@ const Details: React.FC<IDetails> = () => {
   return (
     <>
       <ParallaxScrollView
+        scrollEvent={onScroll}
         backgroundColor={colors.lightGray}
         style={styles.parallaxScrollView}
         parallaxHeaderHeight={300}
@@ -135,12 +169,13 @@ const Details: React.FC<IDetails> = () => {
           />
         </View>
       </ParallaxScrollView>
-      <Animated.View style={[styles.stickySegments]}>
+      <Animated.View style={[styles.stickySegments, animatedStyles]}>
         <View style={styles.segmentsShadow}>
           <ScrollView
             contentContainerStyle={styles.scrollViewSegments}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
+            ref={scrollRef}
           >
             {sectionListData.map((section, index) => {
               return (
@@ -152,6 +187,7 @@ const Details: React.FC<IDetails> = () => {
                       : styles.segment
                   }
                   onPress={() => selectCategory(index)}
+                  ref={(ref) => (itemsRef.current[index] = ref!)}
                 >
                   <Text
                     style={
@@ -285,13 +321,26 @@ const styles = StyleSheet.create({
     right: 0,
     top: Platform.OS === "ios" ? 100 : 80,
     backgroundColor: colors.lightGray,
+    overflow: "hidden",
   },
   segmentsShadow: {
+    width: "100%",
+    height: "100%",
     justifyContent: "center",
-    paddingTop: 10,
+    alignContent: "center",
+    backgroundColor: colors.lightGray,
+    shadowColor: colors.black,
+    elevation: 5,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
   },
   scrollViewSegments: {
     paddingHorizontal: 16,
+    alignItems: "center",
+    gap: 10,
   },
   activeSegment: {
     backgroundColor: colors.lightSeaGreen,
