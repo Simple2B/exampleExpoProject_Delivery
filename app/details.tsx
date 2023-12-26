@@ -7,14 +7,20 @@ import {
   Platform,
   SectionList,
   ListRenderItem,
+  ScrollView,
 } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { colors } from "@/constants/colors";
 import { restaurant } from "@/assets/data/restaurants";
-import { useNavigation } from "expo-router";
+import { Link, useNavigation } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import fonts from "@/assets/fonts";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 
 interface IDetails {}
 
@@ -24,6 +30,26 @@ const Details: React.FC<IDetails> = () => {
     title: food.category,
     data: food.meals,
   }));
+
+  const scrollRef = useRef<ScrollView>(null);
+  const itemsRef = useRef<TouchableOpacity[]>([]);
+
+  const [activeSegment, setActiveSegment] = useState(0);
+
+  const selectCategory = (index: number) => {
+    const selected = itemsRef.current[index];
+    setActiveSegment(index);
+    selected.measure((x) => {
+      scrollRef.current?.scrollTo({ x: x - 16, y: 0, animated: true });
+    });
+  };
+
+  const opacity = useSharedValue(0);
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      opacity: opacity.value,
+    };
+  });
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -67,69 +93,118 @@ const Details: React.FC<IDetails> = () => {
     });
   }, []);
 
+  const onScroll = (event: any) => {
+    const y = event.nativeEvent.contentOffset.y;
+    if (y > 150) {
+      opacity.value = withTiming(1);
+    } else {
+      opacity.value = withTiming(0);
+    }
+  };
+
   const renderItem: ListRenderItem<any> = ({ item, index }) => {
     return (
-      <View
-        key={index}
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          marginHorizontal: 16,
-          marginVertical: 8,
+      <Link
+        href={{
+          pathname: "/(modal)/dish",
+          params: { id: item.id },
         }}
+        asChild
       >
-        <Text>{item.name}</Text>
-        <Text>{item.price}</Text>
-      </View>
+        <TouchableOpacity key={index} style={styles.item}>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.dish}>{item.name}</Text>
+            <Text style={styles.dishText}>{item.info}</Text>
+            <Text style={styles.dishText}>${item.price}</Text>
+          </View>
+          <Image source={item.img} style={styles.imageItem} />
+        </TouchableOpacity>
+      </Link>
     );
   };
+
   return (
-    <ParallaxScrollView
-      backgroundColor={colors.white}
-      style={styles.parallaxScrollView}
-      parallaxHeaderHeight={300}
-      stickyHeaderHeight={120}
-      contentBackgroundColor={colors.lightGray}
-      renderBackground={() => (
-        <Image source={restaurant.img} style={styles.backgroundImage} />
-      )}
-      renderStickyHeader={() => (
-        <View key="sticky-header" style={styles.stickySection}>
-          <Text style={styles.stickySectionText}>{restaurant.name}</Text>
+    <>
+      <ParallaxScrollView
+        scrollEvent={onScroll}
+        backgroundColor={colors.lightGray}
+        style={styles.parallaxScrollView}
+        parallaxHeaderHeight={300}
+        stickyHeaderHeight={120}
+        contentBackgroundColor={colors.lightGray}
+        renderBackground={() => (
+          <Image source={restaurant.img} style={styles.backgroundImage} />
+        )}
+        renderStickyHeader={() => (
+          <View key="sticky-header" style={styles.stickySection}>
+            <Text style={styles.stickySectionText}>{restaurant.name}</Text>
+          </View>
+        )}
+      >
+        <View style={styles.detailsContainer}>
+          <Text style={styles.restaurantName}>{restaurant.name}</Text>
+          <Text style={styles.restaurantDelivery}>
+            {restaurant.delivery} •
+            {restaurant.tags.map(
+              (tag, index) =>
+                ` ${tag} ${index < restaurant.tags.length - 1 ? " • " : " "}`
+            )}
+          </Text>
+          <Text style={styles.restaurantDescription}>{restaurant.about}</Text>
+          <SectionList
+            scrollEnabled={false}
+            keyExtractor={(item) => `${item.id}`}
+            sections={sectionListData}
+            renderSectionHeader={({ section: { title } }) => {
+              return <Text style={styles.sectionHeader}>{title}</Text>;
+            }}
+            renderItem={renderItem}
+            contentContainerStyle={styles.contentContainerStyle}
+            ItemSeparatorComponent={() => {
+              return <View style={styles.itemSeparator} />;
+            }}
+            SectionSeparatorComponent={() => {
+              return <View style={styles.sectionSeparator} />;
+            }}
+          />
         </View>
-      )}
-    >
-      <View style={styles.detailsContainer}>
-        <Text style={styles.restaurantName}>{restaurant.name}</Text>
-        {/* <Text style={styles.restaurantDescription}>
-            {restaurant.description}
-          </Text> */}
-        <Text style={styles.restaurantDelivery}>
-          {restaurant.delivery} •
-          {restaurant.tags.map(
-            (tag, index) =>
-              ` ${tag} ${index < restaurant.tags.length - 1 ? " • " : " "}`
-          )}
-        </Text>
-        <Text style={styles.restaurantDescription}>{restaurant.about}</Text>
-        <SectionList
-          scrollEnabled={false}
-          keyExtractor={(item) => `${item.id}`}
-          sections={sectionListData}
-          renderSectionHeader={({ section: { title } }) => {
-            return <Text style={styles.sectionHeader}>{title}</Text>;
-          }}
-          renderItem={renderItem}
-          contentContainerStyle={styles.contentContainerStyle}
-          ItemSeparatorComponent={() => {
-            return <View style={styles.itemSeparator} />;
-          }}
-          SectionSeparatorComponent={() => {
-            return <View style={styles.sectionSeparator} />;
-          }}
-        />
-      </View>
-    </ParallaxScrollView>
+      </ParallaxScrollView>
+      <Animated.View style={[styles.stickySegments, animatedStyles]}>
+        <View style={styles.segmentsShadow}>
+          <ScrollView
+            contentContainerStyle={styles.scrollViewSegments}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            ref={scrollRef}
+          >
+            {sectionListData.map((section, index) => {
+              return (
+                <TouchableOpacity
+                  key={index}
+                  style={
+                    activeSegment === index
+                      ? styles.activeSegment
+                      : styles.segment
+                  }
+                  onPress={() => selectCategory(index)}
+                  ref={(ref) => (itemsRef.current[index] = ref!)}
+                >
+                  <Text
+                    style={
+                      activeSegment === index
+                        ? styles.activeSegmentText
+                        : styles.segmentText
+                    }
+                  >
+                    {section.title}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </ScrollView>
+        </View>
+      </Animated.View>
+    </>
   );
 };
 
@@ -144,7 +219,7 @@ const styles = StyleSheet.create({
     height: 300,
   },
   detailsContainer: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.lightGray,
   },
   restaurantName: {
     fontFamily: fonts.title,
@@ -168,6 +243,7 @@ const styles = StyleSheet.create({
   itemSeparator: {
     height: 2,
     backgroundColor: colors.lightGray,
+    marginHorizontal: 16,
   },
   sectionSeparator: {
     height: 2,
@@ -189,7 +265,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   stickySection: {
-    // backgroundColor: colors.lightSeaGreen,
     marginLeft: 70,
     height: Platform.OS === "ios" ? 100 : 75,
     justifyContent: "flex-end",
@@ -214,5 +289,80 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: 10,
+  },
+  item: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    paddingVertical: 13,
+    backgroundColor: colors.white,
+  },
+  dish: {
+    fontSize: 18,
+    fontWeight: "900",
+    fontFamily: fonts.text,
+    color: colors.lightSeaGreen,
+  },
+  dishText: {
+    fontSize: 15,
+    fontWeight: "400",
+    fontFamily: fonts.text,
+    paddingVertical: 4,
+  },
+  imageItem: {
+    width: 80,
+    height: 80,
+    borderRadius: 4,
+  },
+  stickySegments: {
+    position: "absolute",
+    height: 50,
+    left: 0,
+    right: 0,
+    top: Platform.OS === "ios" ? 100 : 80,
+    backgroundColor: colors.lightGray,
+    overflow: "hidden",
+  },
+  segmentsShadow: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignContent: "center",
+    backgroundColor: colors.lightGray,
+    shadowColor: colors.black,
+    elevation: 5,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+  },
+  scrollViewSegments: {
+    paddingHorizontal: 16,
+    alignItems: "center",
+    gap: 10,
+  },
+  activeSegment: {
+    backgroundColor: colors.lightSeaGreen,
+    borderRadius: 20,
+    paddingHorizontal: 15,
+    paddingVertical: 2,
+  },
+  segment: {
+    borderRadius: 20,
+    paddingHorizontal: 15,
+    paddingVertical: 2,
+  },
+  activeSegmentText: {
+    color: colors.white,
+    fontSize: 16,
+    fontWeight: "400",
+    fontFamily: fonts.text,
+  },
+  segmentText: {
+    color: colors.lightSeaGreen,
+    fontSize: 16,
+    fontWeight: "400",
+    fontFamily: fonts.text,
   },
 });
