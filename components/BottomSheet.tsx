@@ -16,6 +16,7 @@ import { colors } from "@/constants/colors";
 import fonts from "@/assets/fonts";
 import { Link } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { PathNames } from "@/constants/screens/screens";
 
 export type Ref = BottomSheetModal | null;
 
@@ -53,7 +54,7 @@ const BottomSheet = forwardRef<Ref>((props, ref) => {
         </View>
 
         <Text style={styles.subheader}>Your location</Text>
-        <Link href="/(modal)/location-search" asChild>
+        <Link href={PathNames.locationSearch} asChild>
           <TouchableOpacity>
             <View style={styles.item}>
               <Ionicons

@@ -11,6 +11,7 @@ import fonts from "@/assets/fonts";
 import { colors } from "@/constants/colors";
 import { restaurants } from "@/assets/data/restaurants";
 import { Link } from "expo-router";
+import { PathNames } from "@/constants/screens/screens";
 
 interface IRestaurants {}
 
@@ -23,7 +24,7 @@ const Restaurants: React.FC<IRestaurants> = () => {
     >
       {restaurants.map((restaurant, index) => {
         return (
-          <Link href={"/details"} key={index} asChild>
+          <Link href={PathNames.details} key={index} asChild>
             <TouchableOpacity>
               <View style={styles.card}>
                 <Image style={styles.cardImg} source={restaurant.img} />

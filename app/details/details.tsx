@@ -21,6 +21,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
+import { PathNames } from "@/constants/screens/screens";
 
 interface IDetails {}
 
@@ -106,7 +107,7 @@ const Details: React.FC<IDetails> = () => {
     return (
       <Link
         href={{
-          pathname: "/(modal)/dish",
+          pathname: PathNames.dish,
           params: { id: item.id },
         }}
         asChild
