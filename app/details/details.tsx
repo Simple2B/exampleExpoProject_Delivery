@@ -114,4 +114,3 @@ const Details: React.FC<IDetails> = () => {
 };
 
 export default Details;
-
