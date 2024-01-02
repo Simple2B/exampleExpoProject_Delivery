@@ -16,6 +16,9 @@ web-build/
 *.key
 *.mobileprovision
 
+# Build
+build-*.aab
+
 # Metro
 .metro-health-check*
 
