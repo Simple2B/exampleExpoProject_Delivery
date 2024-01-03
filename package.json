@@ -1,10 +1,14 @@
 {
   "name": "expoproject",
   "main": "expo-router/entry",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
+    "bump-patch": "npm version patch",
+    "bump-minor": "npm version minor",
+    "bump-major": "npm version major",
+    "postversion": "git push --follow-tags",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --watchAll"
