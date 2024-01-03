@@ -5,6 +5,10 @@
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
+    "bump-patch": "npm version patch",
+    "bump-minor": "npm version minor",
+    "bump-major": "npm version major",
+    "postversion": "git push --follow-tags",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --watchAll"
