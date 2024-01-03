@@ -29,7 +29,10 @@ export const unstable_settings = {
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+
+const storybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === "true";
+
+function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/BalooBhai2-Regular.ttf"),
     ...FontAwesome.font,
@@ -119,3 +122,13 @@ const RootLayoutNav = () => {
     </ThemeProvider>
   );
 };
+
+let EntryPoint = RootLayout;
+
+if (storybookEnabled) {
+  const StorybookUI = require("../.storybook").default;
+  // EntryPoint = loadAsync();
+  EntryPoint = () => <StorybookUI />;
+}
+
+export default EntryPoint;
