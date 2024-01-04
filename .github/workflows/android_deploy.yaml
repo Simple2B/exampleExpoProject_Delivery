@@ -55,9 +55,15 @@ jobs:
       - build
     runs-on: anton-builder
     steps:
+      - name: Mapping GSAK
+        uses: mobiledevops/secret-to-file-action@v1
+        with:
+          base64-encoded-secret: ${{ secrets.GSAK }}
+          filename: "GSAK.json"
+          is-executable: false
+          working-directory: "."
       - name: deploy
         run: |
-          echo ${{ secrets.GSAK }} > GSAK.json
           ls -la
           eas submit --platform android --path='latest_build.aab' --non-interactive
 
