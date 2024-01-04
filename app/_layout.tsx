@@ -26,11 +26,10 @@ export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: ScreenName.index,
 };
+const storybookEnabled = Constants.expoConfig?.extra?.storybookEnabled;
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-const storybookEnabled = Constants.expoConfig?.extra?.storybookEnabled;
+storybookEnabled !== "true" && SplashScreen.preventAutoHideAsync();
 
 function RootLayout() {
   const [loaded, error] = useFonts({
