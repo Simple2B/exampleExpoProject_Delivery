@@ -127,7 +127,6 @@ let EntryPoint = RootLayout;
 
 if (storybookEnabled) {
   const StorybookUI = require("../.storybook").default;
-  // EntryPoint = loadAsync();
   EntryPoint = () => <StorybookUI />;
 }
 
