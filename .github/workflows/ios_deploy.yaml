@@ -28,10 +28,13 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: true
+      - name: Dependencies
+        run: |
+          yarn install
       - name: Build
         run: |
           ls -la
-          eas build -p ios --local --non-interactive --output latest-build.ipa
+          EAS_LOCAL_BUILD_SKIP_CLEANUP=1 eas build -p ios --local --non-interactive --output latest-build.ipa
 
   deploy_app:
     name: Deploy to test flight
