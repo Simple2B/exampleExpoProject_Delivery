@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "expoProject",
-    "slug": "expoProject",
-    "version": "1.0.0",
+    "name": "Simple Delivery",
+    "slug": "testexpodelivery",
+    "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -49,11 +49,10 @@
         "origin": false
       },
       "eas": {
-        "projectId": "96118aa5-7988-42ba-884f-3d618056f104"
+        "projectId": "f4418ea3-c49e-44d2-a804-a1790e52cbc2"
       }
     }
   }
 }
 
-
-// "projectId": "f4418ea3-c49e-44d2-a804-a1790e52cbc2"
+// "projectId": "96118aa5-7988-42ba-884f-3d618056f104"
