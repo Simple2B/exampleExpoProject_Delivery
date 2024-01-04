@@ -21,7 +21,7 @@
     "@gorhom/bottom-sheet": "^4",
     "@react-navigation/native": "^6.0.2",
     "deprecated-react-native-prop-types": "^5.0.0",
-    "eas-cli": "0.60.0",
+    "eas-cli": "^5.9.3",
     "expo": "~49.0.18",
     "expo-dev-client": "~2.4.12",
     "expo-font": "~11.4.0",
