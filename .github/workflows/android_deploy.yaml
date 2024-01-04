@@ -57,7 +57,7 @@ jobs:
     steps:
       - name: deploy
         run: |
-          yarn install
+          echo ${{ secrets.GSAK }} > GSAK.json
           ls -la
           eas submit --platform android --path='latest_build.aab' --non-interactive
 
