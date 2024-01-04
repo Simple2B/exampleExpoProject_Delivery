@@ -35,6 +35,7 @@ jobs:
         run: |
           ls -la
           EAS_LOCAL_BUILD_SKIP_CLEANUP=1 eas build -p ios --local --non-interactive --output latest-build.ipa
+          ls -la
 
   deploy_app:
     name: Deploy to test flight
@@ -46,6 +47,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: deploy
         run: |
+          yarn install
           ls -la
           eas submit --platform ios --path="latest-build.ipa" --non-interactive
 
