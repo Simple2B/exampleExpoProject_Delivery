@@ -20,6 +20,7 @@ import {
   INDEX_STACK_OPTIONS,
   LOCATION_SEARCH_STACK_OPTIONS,
 } from "@/constants/screens/options";
+import Constants from "expo-constants";
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -29,8 +30,7 @@ export const unstable_settings = {
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-
-const storybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === "true";
+const storybookEnabled = Constants.expoConfig?.extra?.storybookEnabled;
 
 function RootLayout() {
   const [loaded, error] = useFonts({
