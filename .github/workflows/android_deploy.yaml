@@ -36,13 +36,13 @@ jobs:
           ls -la
           EAS_LOCAL_BUILD_SKIP_CLEANUP=1 eas build -p android --local --clear-cache --non-interactive --output latest_build.aab 
           ls -la
-          - name: Mapping GSAK
-          uses: mobiledevops/secret-to-file-action@v1
-          with:
-            base64-encoded-secret: ${{ secrets.GSAK }}
-            filename: "GSAK.json"
-            is-executable: false
-            working-directory: "."
+      - name: Mapping GSAK
+        uses: mobiledevops/secret-to-file-action@v1
+        with:
+          base64-encoded-secret: ${{ secrets.GSAK }}
+          filename: "GSAK.json"
+          is-executable: false
+          working-directory: "."
       - name: deploy
         run: |
           ls -la
