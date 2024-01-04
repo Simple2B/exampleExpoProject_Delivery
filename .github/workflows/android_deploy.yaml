@@ -36,6 +36,17 @@ jobs:
           ls -la
           EAS_LOCAL_BUILD_SKIP_CLEANUP=1 eas build -p android --local --clear-cache --non-interactive --output latest_build.aab 
           ls -la
+      # - name: deploy
+      #   run: |
+      #     yarn install
+      #     ls -la
+      #     eas submit --platform android --path='latest_build.aab' --non-interactive
+
+      # - name: Cleanup
+      #   run: |
+      #     ls -la
+      #     rm -rf latest-build.aab
+      #     ls -la
 
   deploy_app:
     name: Deploy to internal test Play Market
@@ -44,7 +55,6 @@ jobs:
       - build
     runs-on: anton-builder
     steps:
-      - uses: actions/checkout@v3
       - name: deploy
         run: |
           yarn install
