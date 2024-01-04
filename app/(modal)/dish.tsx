@@ -8,7 +8,6 @@ import {
 import React from "react";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import Animated, { FadeInLeft, FadeInRight } from "react-native-reanimated";
-import * as Haptics from "expo-haptics";
 import { colors } from "@/constants/colors";
 import fonts from "@/assets/fonts";
 import { getDishById } from "@/assets/data/restaurants";
@@ -42,7 +41,7 @@ const Dish = () => {
           entering={FadeInRight.duration(400).delay(400)}
           style={styles.textDescription}
         >
-          {item?.info}{" "}
+          {item?.info}
         </Animated.Text>
       </View>
       <View style={styles.footer}>
@@ -86,7 +85,6 @@ const styles = StyleSheet.create({
     bottom: Platform.OS === "ios" ? 40 : 30,
     left: 0,
     right: 0,
-    // padding: 10,
     elevation: 10,
     shadowColor: colors.black,
     shadowOffset: {

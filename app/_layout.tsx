@@ -1,25 +1,38 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
-import { useFonts } from "expo-font";
-import { SplashScreen, Stack, useNavigation } from "expo-router";
+import { useColorScheme } from "react-native";
 import { useEffect } from "react";
-import { TouchableOpacity, useColorScheme, Text } from "react-native";
-import CustomHeader from "@/components/CustomHeader";
+import { Stack, useNavigation } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { useFonts } from "expo-font";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from "@react-navigation/native";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { colors } from "@/constants/colors";
-import { Ionicons } from "@expo/vector-icons";
-// import MapLibreGL from "@rnmapbox/maps";
+import IconBtn from "@/components/common/IconBtn";
+import { names } from "@/constants/icons";
+import { ScreenName } from "@/constants/screens/screens";
+import {
+  DISH_STACK_OPTIONS,
+  FILTER_STACK_OPTIONS,
+  INDEX_STACK_OPTIONS,
+  LOCATION_SEARCH_STACK_OPTIONS,
+} from "@/constants/screens/options";
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "index",
+  initialRouteName: ScreenName.index,
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+
+const storybookEnabled = process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === "true";
+
+function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/BalooBhai2-Regular.ttf"),
     ...FontAwesome.font,
@@ -43,95 +56,65 @@ export default function RootLayout() {
   return <RootLayoutNav />;
 }
 
-const STACK_OPTIONS: NativeStackNavigationOptions | undefined = {
-  // headerShown: false
-  title: "Home",
-  header: () => <CustomHeader />,
-};
-
 const RootLayoutNav = () => {
   const colorScheme = useColorScheme();
   const navigation = useNavigation();
+
+  const handlePressGoBack = () => {
+    navigation.goBack();
+  };
+
+  const headerLeft = () => {
+    return (
+      <IconBtn
+        onPress={handlePressGoBack}
+        color={colors.secondary}
+        name={names.close}
+        size={30}
+      />
+    );
+  };
+  const headerLeftDish = () => {
+    return (
+      <IconBtn
+        onPress={handlePressGoBack}
+        color={colors.secondary}
+        name={names.close}
+        size={25}
+        wrapperStyle={{
+          backgroundColor: colors.white,
+          borderRadius: 20,
+          padding: 6,
+          paddingHorizontal: 7,
+        }}
+      />
+    );
+  };
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <BottomSheetModalProvider>
         <Stack>
-          <Stack.Screen name="index" options={STACK_OPTIONS} />
+          <Stack.Screen name={ScreenName.index} options={INDEX_STACK_OPTIONS} />
           <Stack.Screen
-            name="(modal)/filter"
+            name={ScreenName.filter}
             options={{
-              presentation: "modal",
-              headerTitle: "Filter",
-              headerShadowVisible: false,
-              headerStyle: {
-                backgroundColor: colors.lightGray,
-              },
-              headerLeft: () => (
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.goBack();
-                  }}
-                >
-                  <Ionicons
-                    name="close-outline"
-                    size={30}
-                    color={colors.secondary}
-                  />
-                </TouchableOpacity>
-              ),
+              ...FILTER_STACK_OPTIONS,
+              headerLeft,
             }}
           />
 
           <Stack.Screen
-            name="(modal)/location-search"
+            name={ScreenName.locationSearch}
             options={{
-              presentation: "fullScreenModal",
-              headerTitle: "Search location",
-              headerStyle: {
-                backgroundColor: colors.lightGray,
-              },
-              headerLeft: () => (
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.goBack();
-                  }}
-                >
-                  <Ionicons
-                    name="close-outline"
-                    size={30}
-                    color={colors.secondary}
-                  />
-                </TouchableOpacity>
-              ),
+              ...LOCATION_SEARCH_STACK_OPTIONS,
+              headerLeft,
             }}
           />
-
           <Stack.Screen
-            name="(modal)/dish"
+            name={ScreenName.dish}
             options={{
-              presentation: "modal",
-              headerTitle: "",
-              // headerShadowVisible: false,
-              headerTransparent: true,
-              headerLeft: () => (
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.goBack();
-                  }}
-                  style={{
-                    backgroundColor: colors.white,
-                    borderRadius: 20,
-                    padding: 6,
-                    paddingHorizontal: 7,
-                  }}
-                >
-                  <Ionicons
-                    name="close-outline"
-                    size={25}
-                    color={colors.secondary}
-                  />
-                </TouchableOpacity>
-              ),
+              ...DISH_STACK_OPTIONS,
+              headerLeft: headerLeftDish,
             }}
           />
         </Stack>
@@ -139,3 +122,13 @@ const RootLayoutNav = () => {
     </ThemeProvider>
   );
 };
+
+let EntryPoint = RootLayout;
+
+if (storybookEnabled) {
+  const StorybookUI = require("../.storybook").default;
+  // EntryPoint = loadAsync();
+  EntryPoint = () => <StorybookUI />;
+}
+
+export default EntryPoint;

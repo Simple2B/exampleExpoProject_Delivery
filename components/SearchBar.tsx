@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "expo-router";
 import { colors } from "@/constants/colors";
 import { Ionicons } from "@expo/vector-icons";
+import { PathNames } from "@/constants/screens/screens";
 
 interface ISearchBar {}
 
@@ -23,7 +24,7 @@ const SearchBar: React.FC<ISearchBar> = () => {
             style={styles.input}
           />
         </View>
-        <Link href="/(modal)/filter" asChild>
+        <Link href={PathNames.filter} asChild>
           <TouchableOpacity style={styles.optionBtn}>
             <Ionicons
               name="options-outline"

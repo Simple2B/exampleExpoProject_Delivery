@@ -1,9 +1,6 @@
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
-import React, { EffectCallback, useEffect, useRef, useState } from "react";
-import MapView, {
-
-  Region,
-} from "react-native-maps";
+import React, { useEffect, useRef, useState } from "react";
+import MapView, { Region } from "react-native-maps";
 import * as Location from "expo-location";
 import {
   GooglePlaceDetail,
@@ -12,7 +9,6 @@ import {
 import { colors } from "@/constants/colors";
 import fonts from "@/assets/fonts";
 import { Ionicons } from "@expo/vector-icons";
-
 
 
 const EXPO_PUBLIC_GOOGLE_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_API_KEY;
