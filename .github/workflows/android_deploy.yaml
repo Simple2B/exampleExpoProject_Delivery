@@ -1,0 +1,58 @@
+name: Build and Deploy to Production
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  on-main-branch-check:
+    runs-on: Linux
+    outputs:
+      on_main: ${{ steps.contains_tag.outputs.retval }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: rickstaa/action-contains-tag@v1
+        id: contains_tag
+        with:
+          reference: "develop"
+          tag: "${{ github.ref }}"
+  build:
+    runs-on: anton-builder
+    needs: on-main-branch-check
+    if: ${{ needs.on-main-branch-check.outputs.on_main == 'true' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      - name: Dependencies
+        run: |
+          yarn install
+      - name: Build
+        run: |
+          ls -la
+          EAS_LOCAL_BUILD_SKIP_CLEANUP=1 eas build -p android --local --clear-cache --non-interactive --output latest_build.aab 
+          ls -la
+
+  deploy_app:
+    name: Deploy to internal test Play Market
+    needs:
+      - on-main-branch-check
+      - build
+    runs-on: anton-builder
+    steps:
+      - uses: actions/checkout@v3
+      - name: deploy
+        run: |
+          yarn install
+          ls -la
+          eas submit --platform android --path='latest_build.aab' --non-interactive
+
+      - name: Cleanup
+        run: |
+          ls -la
+          rm -rf latest-build.aab
+          ls -la
