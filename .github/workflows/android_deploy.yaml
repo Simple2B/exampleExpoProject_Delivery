@@ -19,7 +19,7 @@ jobs:
         with:
           reference: "develop"
           tag: "${{ github.ref }}"
-  build:
+  build-deploy:
     runs-on: anton-builder
     needs: on-main-branch-check
     if: ${{ needs.on-main-branch-check.outputs.on_main == 'true' }}
@@ -36,32 +36,13 @@ jobs:
           ls -la
           EAS_LOCAL_BUILD_SKIP_CLEANUP=1 eas build -p android --local --clear-cache --non-interactive --output latest_build.aab 
           ls -la
-      # - name: deploy
-      #   run: |
-      #     yarn install
-      #     ls -la
-      #     eas submit --platform android --path='latest_build.aab' --non-interactive
-
-      # - name: Cleanup
-      #   run: |
-      #     ls -la
-      #     rm -rf latest-build.aab
-      #     ls -la
-
-  deploy_app:
-    name: Deploy to internal test Play Market
-    needs:
-      - on-main-branch-check
-      - build
-    runs-on: anton-builder
-    steps:
-      - name: Mapping GSAK
-        uses: mobiledevops/secret-to-file-action@v1
-        with:
-          base64-encoded-secret: ${{ secrets.GSAK }}
-          filename: "GSAK.json"
-          is-executable: false
-          working-directory: "."
+          - name: Mapping GSAK
+          uses: mobiledevops/secret-to-file-action@v1
+          with:
+            base64-encoded-secret: ${{ secrets.GSAK }}
+            filename: "GSAK.json"
+            is-executable: false
+            working-directory: "."
       - name: deploy
         run: |
           ls -la
