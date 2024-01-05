@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { Link } from "expo-router";
 import { PathNames } from "@/constants/screens/screens";
-import { styles } from "../details.style";
+import { styles } from "../../details.style";
 
 interface IRenderItem {
   // TODO: add types

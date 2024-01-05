@@ -19,6 +19,7 @@ import {
   FILTER_STACK_OPTIONS,
   INDEX_STACK_OPTIONS,
   LOCATION_SEARCH_STACK_OPTIONS,
+  WELCOME_STACK_OPTIONS,
 } from "@/constants/screens/options";
 import Constants from "expo-constants";
 
@@ -26,11 +27,10 @@ export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: ScreenName.index,
 };
+const storybookEnabled = Constants.expoConfig?.extra?.storybookEnabled;
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-const storybookEnabled = Constants.expoConfig?.extra?.storybookEnabled;
+storybookEnabled !== "true" && SplashScreen.preventAutoHideAsync();
 
 function RootLayout() {
   const [loaded, error] = useFonts({
@@ -94,7 +94,8 @@ const RootLayoutNav = () => {
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <BottomSheetModalProvider>
         <Stack>
-          <Stack.Screen name={ScreenName.index} options={INDEX_STACK_OPTIONS} />
+          <Stack.Screen name={ScreenName.index} options={INDEX_STACK_OPTIONS}  />
+          <Stack.Screen name={ScreenName.welcome} options={WELCOME_STACK_OPTIONS} />
           <Stack.Screen
             name={ScreenName.filter}
             options={{
@@ -102,7 +103,6 @@ const RootLayoutNav = () => {
               headerLeft,
             }}
           />
-
           <Stack.Screen
             name={ScreenName.locationSearch}
             options={{

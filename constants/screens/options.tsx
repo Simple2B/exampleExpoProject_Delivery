@@ -11,6 +11,10 @@ const HEADER_STYLE = {
 
 const INDEX_STACK_OPTIONS: NativeStackNavigationOptions | undefined = {
   title: "Home",
+  header: () => <></>,
+};
+const WELCOME_STACK_OPTIONS: NativeStackNavigationOptions | undefined = {
+  title: "Welcome",
   header: () => <CustomHeader />,
 };
 
@@ -36,6 +40,7 @@ const DISH_STACK_OPTIONS: NativeStackNavigationOptions | undefined = {
 
 export {
   INDEX_STACK_OPTIONS,
+  WELCOME_STACK_OPTIONS,
   FILTER_STACK_OPTIONS,
   LOCATION_SEARCH_STACK_OPTIONS,
   DISH_STACK_OPTIONS,
