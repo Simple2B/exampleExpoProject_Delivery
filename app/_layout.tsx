@@ -34,7 +34,8 @@ storybookEnabled !== "true" && SplashScreen.preventAutoHideAsync();
 
 function RootLayout() {
   const [loaded, error] = useFonts({
-    SpaceMono: require("../assets/fonts/BalooBhai2-Regular.ttf"),
+    BalooBhai2: require("../assets/fonts/BalooBhai2-Regular.ttf"),
+    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
   });
 
