@@ -1,6 +1,7 @@
 {
   "cli": {
-    "version": ">= 5.9.1"
+    "version": ">= 5.9.1",
+    "appVersionSource": "remote"
   },
   "build": {
     "development": {
@@ -13,10 +14,16 @@
     "preview": {
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "autoIncrement": true
+    }
   },
   "submit": {
     "production": {
+      "android": {
+        "serviceAccountKeyPath": "GSAK.json",
+        "track": "internal"
+      }
     }
   }
 }

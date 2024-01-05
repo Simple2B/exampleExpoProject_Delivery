@@ -17,6 +17,7 @@ web-build/
 *.mobileprovision
 
 # Build
+*.aab
 build-*.aab
 build-*.ipa
 
@@ -43,5 +44,8 @@ yarn-error.*
 
 expo-env.d.ts
 # @end expo-cli
+
+# Google Service Account Keys
+GSAK.json
 
 .env

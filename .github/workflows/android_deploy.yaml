@@ -1,4 +1,4 @@
-name: Build&Deploy iOS
+name: Build&Deploy Android
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
         with:
           reference: "develop"
           tag: "${{ github.ref }}"
-  build:
+  build-deploy:
     runs-on: anton-builder
     needs: on-main-branch-check
     if: ${{ needs.on-main-branch-check.outputs.on_main == 'true' }}
@@ -34,25 +34,22 @@ jobs:
       - name: Build
         run: |
           ls -la
-          EAS_LOCAL_BUILD_SKIP_CLEANUP=1 eas build -p ios --local --clear-cache --non-interactive --output latest-build.ipa
+          eas build -p android --local --clear-cache --non-interactive --output latest_build.aab 
           ls -la
-
-  deploy_app:
-    name: Deploy to test flight
-    needs:
-      - on-main-branch-check
-      - build
-    runs-on: anton-builder
-    steps:
-      - uses: actions/checkout@v3
+      - name: Mapping GSAK
+        uses: mobiledevops/secret-to-file-action@v1
+        with:
+          base64-encoded-secret: ${{ secrets.GSAK }}
+          filename: "GSAK.json"
+          is-executable: false
+          working-directory: "."
       - name: deploy
         run: |
-          yarn install
           ls -la
-          eas submit --platform ios --path="latest-build.ipa" --non-interactive
+          eas submit --platform android --path='latest_build.aab' --non-interactive
 
       - name: Cleanup
         run: |
           ls -la
-          rm -rf latest-build.ipa
+          rm -rf latest-build.aab
           ls -la

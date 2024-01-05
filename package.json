@@ -1,7 +1,7 @@
 {
   "name": "expoproject",
   "main": "expo-router/entry",
-  "version": "0.0.10",
+  "version": "0.0.18",
   "scripts": {
     "start": "expo start",
     "postversion": "git push --follow-tags",
@@ -40,6 +40,7 @@
     "expo-status-bar": "~1.6.0",
     "expo-system-ui": "~2.4.0",
     "expo-web-browser": "~12.3.2",
+    "metro-config": "^0.80.3",
     "node": "^21.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",

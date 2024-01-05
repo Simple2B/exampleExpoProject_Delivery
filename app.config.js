@@ -2,7 +2,7 @@ module.exports = {
   expo: {
     name: "Simple Delivery",
     slug: "testexpodelivery",
-    version: "0.0.1",
+    version: "0.0.1", // npm version doesn't affect this value
     orientation: "portrait",
     icon: "./assets/images/icon.png",
     scheme: "myapp",
