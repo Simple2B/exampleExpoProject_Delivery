@@ -31,36 +31,58 @@ const Login: React.FC<ILogin> = () => {
           rules={{
             required: true,
             maxLength: 100,
+            pattern: /^\S+@\S+$/i,
           }}
           render={({field: {onChange, onBlur, value}}) => (
-            <TextInput
-              placeholder="Email"
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              style={styles.input}
-            />
+            <View style={styles.inputContainer}>
+              <TextInput
+                placeholder="Email"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                style={styles.input}
+              />
+              {errors.email?.type === 'required' && (
+                <Text style={styles.error}>This is required</Text>
+              )}
+              {errors.email?.type === 'pattern' && (
+                <Text style={styles.error}>
+                  Email format should be example@mail.com
+                </Text>
+              )}
+            </View>
           )}
           name="email"
         />
-        {errors.email && <Text>This is required.</Text>}
 
         <Controller
           control={control}
           rules={{
-            maxLength: 100,
+            required: true,
+            minLength: 8,
           }}
           render={({field: {onChange, onBlur, value}}) => (
-            <TextInput
-              placeholder="Password"
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              style={styles.input}
-            />
+            <View style={styles.inputContainer}>
+              <TextInput
+                placeholder="Password"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+                style={styles.input}
+              />
+              {errors.password?.type === 'required' && (
+                <Text style={styles.error}>This is required</Text>
+              )}
+              {errors.password?.type === 'minLength' && (
+                <Text style={styles.error}>
+                  Minimum number of characters is 8
+                </Text>
+              )}
+            </View>
           )}
           name="password"
         />
+
         <Link
           href={PathNames.forgotPassword}
           asChild

@@ -6,6 +6,7 @@ import {
   FILTER_STACK_OPTIONS,
   INDEX_STACK_OPTIONS,
   LOCATION_SEARCH_STACK_OPTIONS,
+  MODAL_SCREEN_STACK_OPTIONS,
   WELCOME_STACK_OPTIONS,
 } from '@/constants/screens/options';
 import IconBtn from '@/components/common/IconBtn';
@@ -72,7 +73,13 @@ const StackScreens = () => {
           headerLeft: headerLeftDish,
         }}
       />
-      <Stack.Screen name={ScreenName.forgotPassword} />
+      <Stack.Screen
+        name={ScreenName.forgotPassword}
+        options={{
+          ...MODAL_SCREEN_STACK_OPTIONS,
+          headerLeft,
+        }}
+      />
     </Stack>
   );
 };

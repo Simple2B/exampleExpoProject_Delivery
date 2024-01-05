@@ -57,9 +57,11 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     marginHorizontal: 15,
   },
-
+  inputContainer: {
+    position: 'relative',
+  },
   input: {
-    marginVertical: 10,
+    marginVertical: 14,
     paddingVertical: 15,
     paddingHorizontal: 15,
     borderRadius: 10,
@@ -71,6 +73,15 @@ export const styles = StyleSheet.create({
       height: 2,
     },
     shadowOpacity: 0.15,
+  },
+  error: {
+    position: 'absolute',
+    bottom: -10,
+    left: 10,
+    fontFamily: fonts.text,
+    fontSize: 16,
+    fontWeight: '600',
+    color: colors.secondary,
   },
   forgotPassword: {
     alignSelf: 'flex-start',

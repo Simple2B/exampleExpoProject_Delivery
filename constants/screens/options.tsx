@@ -7,7 +7,7 @@ const HEADER_STYLE = {
   backgroundColor: colors.lightGray,
 };
 
-//   options
+//options for navigation screens
 
 const INDEX_STACK_OPTIONS: NativeStackNavigationOptions | undefined = {
   title: "Home",
@@ -38,7 +38,15 @@ const DISH_STACK_OPTIONS: NativeStackNavigationOptions | undefined = {
   headerTransparent: true,
 };
 
+const MODAL_SCREEN_STACK_OPTIONS: NativeStackNavigationOptions | undefined = {
+  presentation: 'fullScreenModal',
+  headerTitle: '',
+  // headerStyle: HEADER_STYLE,
+  headerTransparent: true,
+};
+
 export {
+  MODAL_SCREEN_STACK_OPTIONS,
   INDEX_STACK_OPTIONS,
   WELCOME_STACK_OPTIONS,
   FILTER_STACK_OPTIONS,
