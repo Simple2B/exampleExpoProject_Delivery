@@ -1,6 +1,7 @@
 export const names = {
-  close: "close-outline",
-  arrowBack: "arrow-back",
-  shareOutline: "share-outline",
-  searchOutline: "search-outline",
+  close: 'close-outline',
+  arrowBack: 'arrow-back',
+  shareOutline: 'share-outline',
+  searchOutline: 'search-outline',
+  arrowDown: 'arrow-down',
 };

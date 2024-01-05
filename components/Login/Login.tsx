@@ -1,10 +1,14 @@
 import React from 'react';
 import {TextInput, View, Text, TouchableOpacity} from 'react-native';
-import {Controller} from 'react-hook-form';
+import {Controller, useForm} from 'react-hook-form';
 import {styles} from './Login.styles';
-import useLogin from './useLogin.hooks';
 import {Link} from 'expo-router';
 import {PathNames} from '@/constants/screens/screens';
+import {patterns} from '@/constants/patterns';
+import Logo from './Logo';
+import IconBtn from '../common/IconBtn';
+import {colors} from '@/constants/colors';
+import {names} from '@/constants/icons';
 
 interface ILogin {}
 
@@ -13,25 +17,33 @@ const Login: React.FC<ILogin> = () => {
     control,
     handleSubmit,
     formState: {errors},
-    onSubmit,
-  } = useLogin();
+    reset,
+  } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+
+  const onSubmit = (data: any) => {
+    console.log('[onSubmit] data', data);
+    reset();
+  };
+
+  const handlePressSignUp = () => {
+    console.log('handlePressSignUp');
+  };
 
   return (
     <View style={styles.loginContainer}>
-      <View style={styles.logoContainer}>
-        <Text style={styles.title}>
-          S<Text style={styles.subText}>imple</Text>D
-          <Text style={styles.subText}>elivery</Text>
-        </Text>
-      </View>
-
+      <Logo />
       <View style={styles.loginForm}>
         <Controller
           control={control}
           rules={{
             required: true,
             maxLength: 100,
-            pattern: /^\S+@\S+$/i,
+            pattern: patterns.email,
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <View style={styles.inputContainer}>
@@ -91,13 +103,21 @@ const Login: React.FC<ILogin> = () => {
             <Text style={styles.text}>Forgot Password?</Text>
           </TouchableOpacity>
         </Link>
-        <TouchableOpacity
-          style={styles.btnLogin}
-          onPress={handleSubmit(onSubmit)}>
-          <Text style={styles.textLogin}>Login</Text>
-        </TouchableOpacity>
+        <View style={styles.btnsContainer}>
+          <IconBtn
+            onPress={handlePressSignUp}
+            color={colors.white}
+            name={names.arrowDown}
+            size={20}
+            wrapperStyle={styles.iconBtn}
+          />
+          <TouchableOpacity
+            style={styles.btnLogin}
+            onPress={handleSubmit(onSubmit)}>
+            <Text style={styles.textLogin}>Login</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      {/* <View style={styles.triangleCorner}></View> */}
     </View>
   );
 };
