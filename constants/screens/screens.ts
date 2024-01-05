@@ -1,5 +1,7 @@
 export enum ScreenName {
   index = "index",
+  // market = "market",
+  welcome = "welcome",
   filter = "(modal)/filter",
   locationSearch = "(modal)/location-search",
   dish = "(modal)/dish",
@@ -7,6 +9,8 @@ export enum ScreenName {
 
 export type RootStackParamList = {
   [ScreenName.index]: undefined;
+  // [ScreenName.market]: undefined;
+  [ScreenName.welcome]: undefined;
   [ScreenName.filter]: undefined;
   [ScreenName.locationSearch]: undefined;
   [ScreenName.dish]: { id: string };

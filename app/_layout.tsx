@@ -19,6 +19,7 @@ import {
   FILTER_STACK_OPTIONS,
   INDEX_STACK_OPTIONS,
   LOCATION_SEARCH_STACK_OPTIONS,
+  WELCOME_STACK_OPTIONS,
 } from "@/constants/screens/options";
 import Constants from "expo-constants";
 
@@ -93,7 +94,8 @@ const RootLayoutNav = () => {
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <BottomSheetModalProvider>
         <Stack>
-          <Stack.Screen name={ScreenName.index} options={INDEX_STACK_OPTIONS} />
+          <Stack.Screen name={ScreenName.index} options={INDEX_STACK_OPTIONS}  />
+          <Stack.Screen name={ScreenName.welcome} options={WELCOME_STACK_OPTIONS} />
           <Stack.Screen
             name={ScreenName.filter}
             options={{
@@ -101,7 +103,6 @@ const RootLayoutNav = () => {
               headerLeft,
             }}
           />
-
           <Stack.Screen
             name={ScreenName.locationSearch}
             options={{
