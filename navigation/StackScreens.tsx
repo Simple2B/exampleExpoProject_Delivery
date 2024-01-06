@@ -7,6 +7,7 @@ import {
   INDEX_STACK_OPTIONS,
   LOCATION_SEARCH_STACK_OPTIONS,
   MODAL_SCREEN_STACK_OPTIONS,
+  REGISTRATION_STACK_OPTIONS,
   WELCOME_STACK_OPTIONS,
 } from '@/constants/screens/options';
 import IconBtn from '@/components/common/IconBtn';
@@ -79,6 +80,10 @@ const StackScreens = () => {
           ...MODAL_SCREEN_STACK_OPTIONS,
           headerLeft,
         }}
+      />
+      <Stack.Screen
+        name={ScreenName.registration}
+        options={REGISTRATION_STACK_OPTIONS}
       />
     </Stack>
   );

@@ -38,6 +38,12 @@ const DISH_STACK_OPTIONS: NativeStackNavigationOptions | undefined = {
   headerTransparent: true,
 };
 
+const REGISTRATION_STACK_OPTIONS: NativeStackNavigationOptions | undefined = {
+  // presentation: 'modal',
+  headerTitle: '',
+  headerTransparent: true,
+};
+
 const MODAL_SCREEN_STACK_OPTIONS: NativeStackNavigationOptions | undefined = {
   presentation: 'fullScreenModal',
   headerTitle: '',
@@ -48,6 +54,7 @@ const MODAL_SCREEN_STACK_OPTIONS: NativeStackNavigationOptions | undefined = {
 export {
   MODAL_SCREEN_STACK_OPTIONS,
   INDEX_STACK_OPTIONS,
+  REGISTRATION_STACK_OPTIONS,
   WELCOME_STACK_OPTIONS,
   FILTER_STACK_OPTIONS,
   LOCATION_SEARCH_STACK_OPTIONS,

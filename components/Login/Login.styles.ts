@@ -69,7 +69,7 @@ export const styles = StyleSheet.create({
   },
   text: {
     fontFamily: fonts.text,
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '600',
     color: colors.gray,
   },
@@ -104,25 +104,17 @@ export const styles = StyleSheet.create({
     color: colors.secondary,
   },
   forgotPassword: {
-    alignSelf: 'flex-start',
-    marginVertical: 10,
-    marginLeft: 10,
-  },
-  btnsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    // marginHorizontal: 15,
+    alignSelf: 'flex-end',
+    marginRight: 5,
   },
   btnLogin: {
     marginVertical: 25,
-    // marginLeft: 130,
-    // marginRight: 10,
     paddingVertical: 5,
     paddingHorizontal: 55,
     borderRadius: 30,
     backgroundColor: colors.lightSeaGreen,
   },
+
   textLogin: {
     fontFamily: fonts.text,
     fontSize: 20,
@@ -130,11 +122,21 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     color: colors.white,
   },
-  iconBtn: {
-    backgroundColor: colors.secondary,
-    borderRadius: 30,
-    paddingHorizontal: 13,
-    paddingVertical: 12,
+  registerContainer: {
+    marginVertical: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 30,
+  },
+  titleRegister: {
+    fontFamily: fonts.title,
+    fontSize: 18,
+    fontWeight: '600',
+    textAlign: 'center',
+    color: colors.gray,
+  },
+  textRegister: {
+    color: colors.lightSalmon2,
   },
   // triangleCorner: {
   //   alignSelf: 'center',

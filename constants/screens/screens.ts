@@ -6,6 +6,7 @@ export enum ScreenName {
   locationSearch = '(modal)/location-search',
   dish = '(modal)/dish',
   forgotPassword = 'forgot-password',
+  registration = 'registration',
 }
 
 export type RootStackParamList = {
@@ -16,6 +17,7 @@ export type RootStackParamList = {
   [ScreenName.locationSearch]: undefined;
   [ScreenName.dish]: {id: string};
   [ScreenName.forgotPassword]: undefined;
+  [ScreenName.registration]: undefined;
 };
 
 export type MergedParamList = RootStackParamList;
@@ -27,4 +29,5 @@ export enum PathNames {
   locationSearch = '/(modal)/location-search',
   dish = '/(modal)/dish',
   forgotPassword = '/forgot-password',
+  registration = '/registration',
 }
