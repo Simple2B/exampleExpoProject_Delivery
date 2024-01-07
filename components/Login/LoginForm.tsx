@@ -80,10 +80,12 @@ const LoginForm: React.FC<ILoginForm> = () => {
               style={styles.input}
             />
             {errors.password?.type === 'required' && (
-              <Text style={styles.error}>This is required</Text>
+              <Text style={[styles.error, styles.errorPassword]}>
+                This is required
+              </Text>
             )}
             {errors.password?.type === 'minLength' && (
-              <Text style={styles.error}>
+              <Text style={[styles.error, styles.errorPassword]}>
                 Minimum number of characters is 8
               </Text>
             )}

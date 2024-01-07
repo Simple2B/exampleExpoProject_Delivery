@@ -1,4 +1,3 @@
-import {grey} from './../../node_modules/@colors/colors/index.d';
 import React from 'react';
 import fonts from '@/assets/fonts';
 import {colors} from '@/constants/colors';
@@ -102,6 +101,9 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: colors.secondary,
+  },
+  errorPassword: {
+    bottom: 18,
   },
   forgotPassword: {
     alignSelf: 'flex-end',

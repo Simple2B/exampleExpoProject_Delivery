@@ -1,16 +1,12 @@
-import {
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Image,
-  ScrollView,
-} from 'react-native';
+import {StyleSheet, View, ScrollView, Text} from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useFonts} from 'expo-font';
 import {colors} from '@/constants/colors';
 import Login from '@/components/Login/Login';
-import images from '@/assets/images';
+import fonts from '@/assets/fonts';
+import AppleLogin from '@/components/GoogleAppleLogin/AppleLogin';
+import GoogleLogin from '@/components/GoogleAppleLogin/GoogleLogin';
 
 const Welcome = () => {
   const [fontsLoaded] = useFonts({
@@ -18,20 +14,18 @@ const Welcome = () => {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
 
-  const handlePress = () => {};
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <Login />
+        <View style={styles.lineContainer}>
+          <View style={styles.line} />
+          <Text style={styles.lineText}>or</Text>
+          <View style={styles.line} />
+        </View>
         <View style={styles.socialNetworksContainer}>
-          <TouchableOpacity onPress={handlePress} style={styles.iconContainer}>
-            <Image source={images.googleIcon} style={styles.iconBtnGoogle} />
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={handlePress} style={styles.iconContainer}>
-            <Image source={images.appleIcon} style={styles.iconBtnApple} />
-          </TouchableOpacity>
+          <GoogleLogin />
+          <AppleLogin />
         </View>
         <View></View>
         <View style={styles.signUpContainer}></View>
@@ -46,6 +40,24 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightGray,
   },
   scrollView: {flexGrow: 1},
+  lineContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 20,
+    marginHorizontal: 28,
+  },
+  line: {
+    width: '45%',
+    height: 0.5,
+    backgroundColor: colors.gray,
+  },
+  lineText: {
+    fontFamily: fonts.text,
+    fontSize: 18,
+    color: colors.gray,
+    marginHorizontal: 10,
+  },
   socialNetworksContainer: {
     marginVertical: 20,
     flexDirection: 'row',
