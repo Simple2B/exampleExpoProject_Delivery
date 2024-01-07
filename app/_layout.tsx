@@ -1,6 +1,7 @@
 import { useColorScheme } from "react-native";
 import {useEffect} from 'react';
 import * as SplashScreen from 'expo-splash-screen';
+import {QueryClientProvider, QueryClient} from '@tanstack/react-query';
 import {useFonts} from 'expo-font';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import {DarkTheme, DefaultTheme, ThemeProvider} from '@react-navigation/native';
@@ -8,6 +9,8 @@ import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {ScreenName} from '@/constants/screens/screens';
 import Constants from 'expo-constants';
 import StackScreens from '@/navigation/StackScreens';
+
+const queryClient = new QueryClient();
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -47,11 +50,13 @@ const RootLayoutNav = () => {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <BottomSheetModalProvider>
-        <StackScreens />
-      </BottomSheetModalProvider>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <BottomSheetModalProvider>
+          <StackScreens />
+        </BottomSheetModalProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 };
 

@@ -3575,6 +3575,18 @@
     regenerator-runtime "^0.13.7"
     resolve-from "^5.0.0"
 
+"@tanstack/query-core@5.17.8":
+  version "5.17.8"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.17.8.tgz#c1a41a38f15b1f3f4e19f6757d28c987039e3988"
+  integrity sha512-V4hQv4jmRwbji9wo3F6/JQEjbWLUlv2sE2K5R49girEyok71ksDnVHbQiAvp4+FbovMY8A3IbP3cH3jqAUe/BQ==
+
+"@tanstack/react-query@^5.17.8":
+  version "5.17.8"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.17.8.tgz#82bba852744f8411fb6399c62237e69572925692"
+  integrity sha512-J+QMBoQiAZglwVB/bEgmf9IczLPg0YwFaqmn4aTW72ZYkUYyBU9dj6OMQk3RzmD9RzUz2m7pPBCkcT0Z1i0acg==
+  dependencies:
+    "@tanstack/query-core" "5.17.8"
+
 "@tootallnate/once@2":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-2.0.0.tgz#f544a148d3ab35801c1f633a7441fd87c2e484bf"
@@ -12737,6 +12749,11 @@ react-native-bouncy-checkbox@^3.0.7:
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/react-native-bouncy-checkbox/-/react-native-bouncy-checkbox-3.0.7.tgz#011aef92b4fbde2a1f223165626c56a9ffe637fb"
   integrity sha512-776TgMGt9wTpOQA1TcvFjL5VUn6o945wFYf3Ztqva62/vT2o3JAezLiP7hYh2Svd+PewfWBYSPMs4jeaSoS8Sg==
+
+react-native-device-info@^10.12.0:
+  version "10.12.0"
+  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-10.12.0.tgz#be4e71cbcc9a05e8643b1a419a4450d4cef9bbcc"
+  integrity sha512-gnBkjyZNEqRd+5BNrdzuvmlraHTCH/to2x0Gp9rtDt0O9xWWW1MTYohUVWX9A0Ad2HVYcGanDCIvjWp4ngMZFg==
 
 react-native-gesture-handler@~2.12.0:
   version "2.12.1"

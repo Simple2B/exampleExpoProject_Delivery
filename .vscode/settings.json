@@ -6,6 +6,7 @@
         "myapp",
         "postversion",
         "pricetag",
+        "tanstack",
         "testexpodelivery"
     ],
     "editor.formatOnSave": true

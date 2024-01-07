@@ -52,6 +52,11 @@ const StackScreens = () => {
   return (
     <Stack>
       <Stack.Screen name={ScreenName.index} options={INDEX_STACK_OPTIONS} />
+      <Stack.Screen
+        name={ScreenName.registration}
+        options={REGISTRATION_STACK_OPTIONS}
+      />
+
       <Stack.Screen name={ScreenName.welcome} options={WELCOME_STACK_OPTIONS} />
       <Stack.Screen
         name={ScreenName.filter}
@@ -80,10 +85,6 @@ const StackScreens = () => {
           ...MODAL_SCREEN_STACK_OPTIONS,
           headerLeft,
         }}
-      />
-      <Stack.Screen
-        name={ScreenName.registration}
-        options={REGISTRATION_STACK_OPTIONS}
       />
     </Stack>
   );
