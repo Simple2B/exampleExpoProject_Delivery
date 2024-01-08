@@ -11,13 +11,14 @@ import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {ScreenName} from '@/constants/screens/screens';
 import StackScreens from '@/navigation/StackScreens';
 import {StorageKeys} from '@/constants/storage';
+import {OpenAPI} from '@/api/core/OpenAPI';
 
 const queryClient = new QueryClient();
 
 // OpenAPI configuration
-// OpenAPI.BASE = process.env.EXPO_PUBLIC_API_URL ?? '';
-// OpenAPI.TOKEN = async () =>
-//   (await SecureStore.getItemAsync(StorageKeys.TOKEN)) ?? '';
+OpenAPI.BASE = process.env.EXPO_PUBLIC_API_URL ?? '';
+OpenAPI.TOKEN = async () =>
+  (await SecureStore.getItemAsync(StorageKeys.TOKEN)) ?? '';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
