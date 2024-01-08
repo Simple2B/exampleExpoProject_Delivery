@@ -1,6 +1,7 @@
 const fonts = {
-  title: "Baloo Bhai 2",
-  text: "Baloo Bhai 2",
+  title: "BalooBhai2",
+  text: "BalooBhai2",
+  subText: 'SpaceMono'
 };
 
 export default fonts;

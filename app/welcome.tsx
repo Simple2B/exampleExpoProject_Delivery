@@ -9,7 +9,7 @@ import { colors } from "@/constants/colors";
 
 const App = () => {
   const [fontsLoaded] = useFonts({
-    "Baloo Bhai 2": require("../assets/fonts/BalooBhai2-Regular.ttf"),
+    "BalooBhai2": require("../assets/fonts/BalooBhai2-Regular.ttf"),
   });
   return (
     <SafeAreaView style={styles.container}>
