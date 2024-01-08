@@ -1,7 +1,4 @@
 import {
-  View,
-  Text,
-  Image,
   TouchableOpacity,
   ListRenderItem,
   ScrollView,
@@ -11,15 +8,14 @@ import { useNavigation } from "expo-router";
 import {
   useAnimatedStyle,
   useSharedValue,
-  withTiming,
 } from "react-native-reanimated";
 import { colors } from "@/constants/colors";
 import { restaurant } from "@/assets/data/restaurants";
 
 import IconBtn from "@/components/common/IconBtn";
 import { names } from "@/constants/icons";
-import HeaderRight from "./components/HeaderRight";
-import RenderItem from "./components/RenderItem";
+import HeaderRight from "./components/HeaderRight/HeaderRight";
+import RenderItem from "./components/RenderItem/RenderItem";
 import { changeOpacity, offsetScrolling } from "./details.services";
 
 const OPTIONALS = {

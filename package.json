@@ -68,6 +68,7 @@
     "@storybook/addon-controls": "^6.5.16",
     "@storybook/addon-ondevice-actions": "^6.5.7",
     "@storybook/addon-ondevice-controls": "^6.5.7",
+    "@storybook/react": "^7.6.7",
     "@storybook/react-native": "^6.5.7",
     "@types/react": "~18.2.14",
     "babel-loader": "^8.3.0",
