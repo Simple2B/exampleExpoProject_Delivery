@@ -1,10 +1,12 @@
 export enum ScreenName {
-  index = "index",
+  index = 'index',
   // market = "market",
-  welcome = "welcome",
-  filter = "(modal)/filter",
-  locationSearch = "(modal)/location-search",
-  dish = "(modal)/dish",
+  welcome = 'welcome',
+  filter = '(modal)/filter',
+  locationSearch = '(modal)/location-search',
+  dish = '(modal)/dish',
+  forgotPassword = 'forgot-password',
+  registration = 'registration',
 }
 
 export type RootStackParamList = {
@@ -13,15 +15,19 @@ export type RootStackParamList = {
   [ScreenName.welcome]: undefined;
   [ScreenName.filter]: undefined;
   [ScreenName.locationSearch]: undefined;
-  [ScreenName.dish]: { id: string };
+  [ScreenName.dish]: {id: string};
+  [ScreenName.forgotPassword]: undefined;
+  [ScreenName.registration]: undefined;
 };
 
 export type MergedParamList = RootStackParamList;
 
 // paths for links
 export enum PathNames {
-  details = "/details/details",
-  filter = "/(modal)/filter",
-  locationSearch = "/(modal)/location-search",
-  dish = "/(modal)/dish",
+  details = '/details/details',
+  filter = '/(modal)/filter',
+  locationSearch = '/(modal)/location-search',
+  dish = '/(modal)/dish',
+  forgotPassword = '/forgot-password',
+  registration = '/registration',
 }

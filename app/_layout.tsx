@@ -1,27 +1,24 @@
 import { useColorScheme } from "react-native";
-import { useEffect } from "react";
-import { Stack, useNavigation } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
-import { useFonts } from "expo-font";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
-import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
-import { colors } from "@/constants/colors";
-import IconBtn from "@/components/common/IconBtn";
-import { names } from "@/constants/icons";
-import { ScreenName } from "@/constants/screens/screens";
-import {
-  DISH_STACK_OPTIONS,
-  FILTER_STACK_OPTIONS,
-  INDEX_STACK_OPTIONS,
-  LOCATION_SEARCH_STACK_OPTIONS,
-  WELCOME_STACK_OPTIONS,
-} from "@/constants/screens/options";
-import Constants from "expo-constants";
+import {useEffect} from 'react';
+import * as SplashScreen from 'expo-splash-screen';
+import {QueryClientProvider, QueryClient} from '@tanstack/react-query';
+import {useFonts} from 'expo-font';
+import Constants from 'expo-constants';
+import * as SecureStore from 'expo-secure-store';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import {DarkTheme, DefaultTheme, ThemeProvider} from '@react-navigation/native';
+import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
+import {ScreenName} from '@/constants/screens/screens';
+import StackScreens from '@/navigation/StackScreens';
+import {StorageKeys} from '@/constants/storage';
+import {OpenAPI} from '@/api/core/OpenAPI';
+
+const queryClient = new QueryClient();
+
+// OpenAPI configuration
+OpenAPI.BASE = process.env.EXPO_PUBLIC_API_URL ?? '';
+OpenAPI.TOKEN = async () =>
+  (await SecureStore.getItemAsync(StorageKeys.TOKEN)) ?? '';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -30,11 +27,12 @@ export const unstable_settings = {
 const storybookEnabled = Constants.expoConfig?.extra?.storybookEnabled;
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
-storybookEnabled !== "true" && SplashScreen.preventAutoHideAsync();
+storybookEnabled !== 'true' && SplashScreen.preventAutoHideAsync();
 
 function RootLayout() {
   const [loaded, error] = useFonts({
-    SpaceMono: require("../assets/fonts/BalooBhai2-Regular.ttf"),
+    BalooBhai2: require('../assets/fonts/BalooBhai2-Regular.ttf'),
+    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     ...FontAwesome.font,
   });
 
@@ -58,75 +56,22 @@ function RootLayout() {
 
 const RootLayoutNav = () => {
   const colorScheme = useColorScheme();
-  const navigation = useNavigation();
 
-  const handlePressGoBack = () => {
-    navigation.goBack();
-  };
-
-  const headerLeft = () => {
-    return (
-      <IconBtn
-        onPress={handlePressGoBack}
-        color={colors.secondary}
-        name={names.close}
-        size={30}
-      />
-    );
-  };
-  const headerLeftDish = () => {
-    return (
-      <IconBtn
-        onPress={handlePressGoBack}
-        color={colors.secondary}
-        name={names.close}
-        size={25}
-        wrapperStyle={{
-          backgroundColor: colors.white,
-          borderRadius: 20,
-          padding: 6,
-          paddingHorizontal: 7,
-        }}
-      />
-    );
-  };
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <BottomSheetModalProvider>
-        <Stack>
-          <Stack.Screen name={ScreenName.index} options={INDEX_STACK_OPTIONS}  />
-          <Stack.Screen name={ScreenName.welcome} options={WELCOME_STACK_OPTIONS} />
-          <Stack.Screen
-            name={ScreenName.filter}
-            options={{
-              ...FILTER_STACK_OPTIONS,
-              headerLeft,
-            }}
-          />
-          <Stack.Screen
-            name={ScreenName.locationSearch}
-            options={{
-              ...LOCATION_SEARCH_STACK_OPTIONS,
-              headerLeft,
-            }}
-          />
-          <Stack.Screen
-            name={ScreenName.dish}
-            options={{
-              ...DISH_STACK_OPTIONS,
-              headerLeft: headerLeftDish,
-            }}
-          />
-        </Stack>
-      </BottomSheetModalProvider>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <BottomSheetModalProvider>
+          <StackScreens />
+        </BottomSheetModalProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 };
 
 let EntryPoint = RootLayout;
 
 if (storybookEnabled) {
-  const StorybookUI = require("../.storybook").default;
+  const StorybookUI = require('../.storybook').default;
   EntryPoint = () => <StorybookUI />;
 }
 
